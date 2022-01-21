@@ -1,5 +1,5 @@
 <script setup>
-import TriviaForm from './TriviaForm.vue';
+import TriviaForm from '../components/TriviaForm.vue';
 
 const handleStartGame = () => {
   console.log("start game")
