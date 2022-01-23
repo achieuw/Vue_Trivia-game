@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from 'vue'
 import ViewButton from './ViewButton.vue';
-import ViewButton1 from './ViewButton.vue';
 
 const emit = defineEmits(['onClickStart']);
 
