@@ -1,61 +1,49 @@
 <script setup>
 import { ref } from 'vue'
+import ViewButton from './ViewButton.vue';
+import ViewButton1 from './ViewButton.vue';
 
-const emits = defineEmits(['onClick']);
+const emit = defineEmits(['onClickStart']);
 
 const onClickStart = () => {
-  emits('onClick')
+  emit('onClickStart')
   // POST/GET user data
   // GET trivia data
 }
 </script>
 
 <template>
-  <form class="flex-col w-50">
-    <label for="username">Username: </label>
-    <input type="text" placeholder="Enter username..">
-    <label for="username">Difficulty: </label>
-    <input type="text" placeholder="Enter difficulty..">
-    <label for="username">Number of Questions: </label>
-    <input type="text" placeholder="Enter number..">
-    <label for="username">Category: </label>
-    <input type="text" placeholder="Enter category..">
+    <form class="flex flex-col max-w-xs ml-6">
 
-    <button class="start-btn" @click="onClickStart" type="button">Start Game</button>
-  </form>
+      <label for="username">Username: </label>
+      <input class="mb-4 border-b-1 outline-none" type="text" placeholder="Enter username..">
+
+      <label for="difficulty">Difficulty: </label>
+      <select class="mb-4 w-24" id="difficulty">
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+      </select>
+
+      <label for="username">Number of Questions: </label>
+      <input class="mb-4 border-b-1 w-36 outline-none" type="number" placeholder="Enter number..">
+
+      <label for="categories">Category: </label>
+      <select class="mb-4" id="categories">
+        <option value="easy">All categories</option>
+      </select>
+
+      <ViewButton class="bg-emerald-400 w-28 rounded-md p-2 hover:bg-emerald-500" 
+      buttonText="Start Game" 
+      @onClick="onClickStart"/>
+    </form>
 </template>
 
-<style scoped>
-.flex-col{
-  display: flex;
-  flex-direction: column;
+<style>
+.border-b-1{
+  border-bottom: 1px solid gray
 }
-.w-50{
-  width: 50%;
-}
-form{
-  margin: 4px;
-}
-input{
-  padding: 4px;
-  margin: 8px;
-  border: none;
-  border-bottom: 1px solid rgb(73, 73, 73);
-  outline: none;
-}
-input:focus{
-  border-bottom: 1px solid rgb(25, 184, 25);
-}
-.start-btn{
-  width: 50%;
-  margin: 6px auto;
-  padding: 12px;
-  background-color: rgb(121, 223, 197);
-  border: none;
-  border-radius: 12px;
-}
-.start-btn:hover{
-  background-color: rgb(51, 233, 172);
-  cursor: pointer;
+.border-b-1:focus{
+  border-bottom: 1px solid rgb(30, 172, 30);
 }
 </style>
