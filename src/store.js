@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import { apiGetCategories } from "./api/categories";
+import { apiGetQuestions } from "./api/questions";
 
 export default createStore({
     state: {
@@ -20,8 +20,8 @@ export default createStore({
         }
     },
     actions: { //async calls
-        async fetchQuestions({ commit }, { amount, difficulty, categories }) {
-            const [ error, questions ] = await apiGetQuestions( amount, difficulty, categories)
+        async fetchQuestions({ commit }, { amount, difficulty, category }) {
+            const [ error, questions ] = await apiGetQuestions( amount, difficulty, category)
 
             if( error !== null) {
                 return error

@@ -1,11 +1,21 @@
 <script setup>
 import { useRouter } from 'vue-router';
+import { onMounted } from 'vue';
+import { useStore } from 'vuex';
 import ViewButton from '../components/ViewButton.vue'
 import Question from '../components/Question.vue';
 
+
 const router = useRouter()
+const store = useStore();
 
-
+onMounted(async () => {
+  await store.dispatch("fetchQuestions", {
+    amount: 10,
+    difficulty: "",
+    category: ""
+  })
+})
 
 const onClickView = () => {
   router.push('Result')
