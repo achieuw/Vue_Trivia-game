@@ -20,8 +20,8 @@ export default createStore({
         }
     },
     actions: { //async calls
-        async fetchQuestions({ commit }) {
-            const [ error, questions ] = await apiGetCategories()
+        async fetchQuestions({ commit }, { amount, difficulty, categories }) {
+            const [ error, questions ] = await apiGetQuestions( amount, difficulty, categories)
 
             if( error !== null) {
                 return error
