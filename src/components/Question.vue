@@ -1,13 +1,7 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useStore } from 'vuex';
-
-defineProps({
-    questionNumber: {
-        type: Number,
-        required: true
-    }
-})
+import QuestionItem from './QuestionItem.vue';
 
 // decode(str) = {
 //     let textArea = document.createElement('textarea');
@@ -15,19 +9,24 @@ defineProps({
 //     return textArea.value;
 // }
 
-const decode = (str) => {
-    let textArea = document.createElement('textarea')
-    textArea.innerHTML = str;
-    return textArea.value;
-}
-
+const questionNumber = ref(1)
 const store = useStore()
 
 const questions = computed(() => store.getters.getQuestions)
 
+const increment = () => {
+    if(questionNumber.value < questions.value.length) {
+        questionNumber.value++
+    }
+}
+
 </script>
 
 <template>
-    <h1>Hello Question {{questionNumber}}</h1>
-    <h2 v-for="(question, index) in questions" :key="index" v-html="question.question"></h2>
+    <div v-for="(question,index) in questions" :key="index">
+        <QuestionItem v-if="questionNumber === index + 1" :question="question" :questionNumber="index + 1"/>
+    </div>
+    <button class="bg-emerald-400 w-30 rounded-md p-2 hover:bg-emerald-500"
+    @click="increment">Next Question
+    </button>
 </template>

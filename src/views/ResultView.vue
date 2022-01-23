@@ -13,7 +13,7 @@ const onClickQuestionView = () => {
 </script>
 
 <template>
-<h1>Question View</h1>
+<h1>Result View</h1>
 <ViewButton class="bg-emerald-400 w-28 rounded-md p-2 hover:bg-emerald-500" 
       buttonText="Go to start" 
       @onClick="onClickStartView"/>
