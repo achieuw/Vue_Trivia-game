@@ -1,13 +1,27 @@
 <script setup>
 import { ref } from 'vue'
+import { useStore } from 'vuex'
+import { apiUserDataGet } from '../api/users';
 import ViewButton from './ViewButton.vue';
 
-const emit = defineEmits(['onClickStart']);
+const store = useStore()
+const emit = defineEmits(['onClickSuccess']);
+const username = ref("")
 
-const onClickStart = () => {
-  emit('onClickStart')
-  // POST/GET user data
-  // GET trivia data
+//const categories = computer(() => store.getters.categories)
+
+const displayError = ref("")
+
+const onClickStart = async () => {
+   const data = await store.dispatch("fetchUser", {
+     username
+  })
+
+  if (data === null) {
+    displayError.value = "error"
+  } else {
+   emit('onClickSuccess')
+  }
 }
 </script>
 
@@ -15,7 +29,7 @@ const onClickStart = () => {
     <form class="flex flex-col max-w-xs ml-6">
 
       <label for="username">Username: </label>
-      <input class="mb-4 border-b-1 outline-none" type="text" placeholder="Enter username..">
+      <input class="mb-4 border-b-1 outline-none" type="text" placeholder="Enter username.." v-model="username">
 
       <label for="difficulty">Difficulty: </label>
       <select class="mb-4 w-24" id="difficulty">
@@ -32,10 +46,13 @@ const onClickStart = () => {
         <option value="easy">All categories</option>
       </select>
 
-      <ViewButton class="bg-emerald-400 w-28 rounded-md p-2 hover:bg-emerald-500" 
+      
+    </form>
+    <ViewButton class="bg-emerald-400 w-28 rounded-md p-2 hover:bg-emerald-500" 
       buttonText="Start Game" 
       @onClick="onClickStart"/>
-    </form>
+
+    <p> {{displayError}} </p>
 </template>
 
 <style>
