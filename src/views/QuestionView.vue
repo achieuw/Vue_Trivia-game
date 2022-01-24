@@ -24,9 +24,13 @@ const onClickView = () => {
 </script>
 
 <template>
-  <h1>Question View</h1>
-  <Question />
-  <ViewButton
-        buttonText="Go to result" 
-        @onClick="onClickView"/>
+  <div class="flex flex-col justify-evenly items-stretch border h-full">
+    <h1 class="text-5xl text-center mt-5 mb-10">Question View</h1>
+    <div class="mt-10">
+      <Question />
+    </div>
+    <ViewButton class="absolute right-1/4 bottom-1/4"
+          buttonText="Go to result" 
+          @onClick="onClickView"/>
+  </div>
 </template>
