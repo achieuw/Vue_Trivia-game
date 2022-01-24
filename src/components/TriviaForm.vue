@@ -75,7 +75,6 @@ const onClickStart = async () => {
     </div>
   </form>
   <ViewButton
-    class="ml-6 bg-emerald-400 w-28 rounded-md p-2 hover:bg-emerald-500"
     buttonText="Start Game"
     @onClick="onClickStart"
   />
