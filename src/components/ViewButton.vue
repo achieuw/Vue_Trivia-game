@@ -15,8 +15,10 @@ const onClick = () => {
 </script>
 
 <template>
-<button  
-@click="onClick">
-  {{ buttonText }}
-</button>
+<div>
+  <button class="bg-emerald-400 w-30 rounded-md p-2 hover:bg-emerald-500"
+  @click="onClick">
+    {{ buttonText }}
+  </button>
+</div>
 </template>

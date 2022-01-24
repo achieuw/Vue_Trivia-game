@@ -32,7 +32,7 @@ const onClickStart = () => {
         <option value="easy">All categories</option>
       </select>
 
-      <ViewButton class="bg-emerald-400 w-28 rounded-md p-2 hover:bg-emerald-500" 
+      <ViewButton
       buttonText="Start Game" 
       @onClick="onClickStart"/>
     </form>

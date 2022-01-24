@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useStore } from 'vuex';
+import ViewButton from './ViewButton.vue';
 
 defineProps({
     question: {
@@ -53,8 +54,6 @@ const selectedAnswer = ref('');
         <input type="radio" :name="question.question" id="false" value="False" v-model="selectedAnswer">
         <label for="false">False</label>
     </div>
-    <button class="bg-emerald-400 w-30 rounded-md p-2 hover:bg-emerald-500"
-    @click="onClickNextQuestion">Next Question
-    </button>
+    <ViewButton buttonText="Next Question" @onClick="onClickNextQuestion"/>
     <p>{{selectedAnswer}}</p>
 </template>
