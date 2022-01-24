@@ -59,7 +59,6 @@ const selectedAnswer = ref('');
                 <label class="mx-1" for="false">False</label>
             </div>
         </div>
-        <ViewButton class="self-end" buttonText="Next Question" @onClick="onClickNextQuestion"/>
-        <p>{{selectedAnswer}}</p>
+        <ViewButton class="self-end mb-2" buttonText="Next Question" @onClick="onClickNextQuestion"/>
     </div>
 </template>
