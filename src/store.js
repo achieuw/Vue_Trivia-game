@@ -2,24 +2,16 @@ import { createStore } from "vuex";
 import { apiGetCategories } from "./api/categories";
 import { apiUserDataGet, apiUserDataPost } from "./api/users";
 
-const setUserData = async (username, highScore) => {
-  await commit("setUser", username)
-  await commit("setHighScore", highScore)
-}
-
 export default createStore({
   state: {
     user: "",
     highScore: 0,
-    score: 0,
     questions: [],
+    categoryID: 9
   },
   mutations: {
     setUser: (state, user) => {
       state.user = user;
-    },
-    setScore: (state, score) => {
-      state.score = score;
     },
     setHighScore: (state, highScore) => {
       state.highScore = highScore;
@@ -27,6 +19,9 @@ export default createStore({
     setQuestions: (state, questions) => {
       state.questions = questions;
     },
+    setCategoryID: (state, id) => {
+      state.categoryID = id;
+    }
   },
   actions: {
     //async calls
@@ -36,15 +31,12 @@ export default createStore({
       // if (error !== null) {
       //   return error;
       // }
-      console.log(questions)
       commit("setQuestions", questions);
       return null;
     },
 
     async fetchUser({ commit }, { username }) {
         const data = await apiUserDataGet(username.value);
-
-        console.log(data)
 
         // Get user data if user exist
         if(data.length !== 0) {
