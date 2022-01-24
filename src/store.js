@@ -31,12 +31,12 @@ export default createStore({
   actions: {
     //async calls
     async fetchQuestions({ commit }) {
-      const [ error, questions ] = await apiGetCategories();
+      const questions = await apiGetCategories();
 
-      if (error !== null) {
-        return error;
-      }
-
+      // if (error !== null) {
+      //   return error;
+      // }
+      console.log(questions)
       commit("setQuestions", questions);
       return null;
     },
