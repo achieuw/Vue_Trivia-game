@@ -16,7 +16,10 @@ const emit = defineEmits(['onClickNextQuestion'])
 const store = useStore()
 
 const onClickNextQuestion = () => {
-    store.commit('addAnswer', selectedAnswer.value)
+    store.commit('addAnswer', { 
+        answer: selectedAnswer.value,
+        index: (props.questionNumber - 1)
+    });
     emit('onClickNextQuestion')
 }
 
