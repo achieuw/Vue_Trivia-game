@@ -24,9 +24,6 @@ const increment = () => {
 
 <template>
     <div v-for="(question,index) in questions" :key="index">
-        <QuestionItem v-if="questionNumber === index + 1" :question="question" :questionNumber="index + 1"/>
+        <QuestionItem v-if="questionNumber === index + 1" :question="question" :questionNumber="index + 1" @onClickNextQuestion="increment" />
     </div>
-    <button class="bg-emerald-400 w-30 rounded-md p-2 hover:bg-emerald-500"
-    @click="increment">Next Question
-    </button>
 </template>
