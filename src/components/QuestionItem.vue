@@ -35,8 +35,6 @@ const answers = ref([...props.question.incorrect_answers])
 //insert value at random index
 answers.value.splice(Math.floor(Math.random()*(answers.value.length + 1)), 0, props.question.correct_answer)
 
-console.log(answers.value);
-console.log(props.question.correct_answer)
 </script>
 
 <template>
