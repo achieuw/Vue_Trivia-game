@@ -1,16 +1,18 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useStore } from 'vuex'
-import { apiUserDataGet } from '../api/users';
 import ViewButton from './ViewButton.vue';
+import CategoryList from './CategoryList.vue';
 
 const store = useStore()
 const emit = defineEmits(['onClickSuccess']);
 const username = ref("")
 
-//const categories = computer(() => store.getters.categories)
-
 const displayError = ref("")
+
+onMounted(async () => {
+  await store.dispatch("fetchQuestions")
+})
 
 const onClickStart = async () => {
    const data = await store.dispatch("fetchUser", {
@@ -40,15 +42,15 @@ const onClickStart = async () => {
 
       <label for="username">Number of Questions: </label>
       <input class="mb-4 border-b-1 w-36 outline-none" type="number" placeholder="Enter number..">
-
-      <label for="categories">Category: </label>
-      <select class="mb-4" id="categories">
-        <option value="easy">All categories</option>
-      </select>
+      
+      <div class="mb-4">
+        <CategoryList />
+      </div>
+      
 
       
     </form>
-    <ViewButton class="bg-emerald-400 w-28 rounded-md p-2 hover:bg-emerald-500" 
+    <ViewButton class="ml-6 bg-emerald-400 w-28 rounded-md p-2 hover:bg-emerald-500" 
       buttonText="Start Game" 
       @onClick="onClickStart"/>
 
