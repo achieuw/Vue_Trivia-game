@@ -5,7 +5,7 @@ import { useStore } from 'vuex'
 const emit = defineEmits(['onCategorySelect'])
 
 const store = useStore()
-const categories = computed(() => store.state.questions.trivia_categories)
+const categories = computed(() => store.state.categories.trivia_categories)
 const categoryID = ref(0)
 
 const setCategoryID = () => {

@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
 import { apiGetQuestions } from "./api/questions";
 import { apiGetCategories } from "./api/categories";
+import { apiUserDataGet, apiUserDataPost } from "./api/users";
 
 export default createStore({
     state: {
@@ -9,6 +10,7 @@ export default createStore({
         score: 0,
         questions: [],
         answers: [],
+        categories: [],
         categoryID: 9
     },
     getters: {
@@ -28,6 +30,9 @@ export default createStore({
         },
         setCategoryID: (state, id) => {
           state.categoryID = id;
+        },
+        setCategories: (state, categories) => {
+          state.categories = categories
         }
     },
     actions: { //async calls
@@ -43,12 +48,12 @@ export default createStore({
         },
         //async calls
     async fetchCategories({ commit }) {
-      const questions = await apiGetCategories();
+      const categories = await apiGetCategories();
 
       // if (error !== null) {
       //   return error;
       // }
-      commit("setQuestions", questions);
+      commit("setCategories", categories);
       return null;
     },
 

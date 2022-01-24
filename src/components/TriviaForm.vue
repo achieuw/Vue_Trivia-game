@@ -9,28 +9,28 @@ const store = useStore();
 const emit = defineEmits(["onClickSuccess"]);
 const username = ref("");
 const difficulty = ref("");
-const amountOfQuestions = ref("");
-const categoryID = computed(() => store.state.categoryID)
+const amountOfQuestions = ref(10);
+const categoryID = computed(() => store.state.categoryID);
 
 const displayError = ref("");
 
 onMounted(async () => {
-  await store.dispatch("fetchQuestions");
+  await store.dispatch("fetchCategories");
 });
 
 const setCategoryValue = (value) => {
-  categoryID = value
-}
+  categoryID = value;
+};
 const onClickStart = async () => {
   const data = await store.dispatch("fetchUser", {
     username,
   });
 
-  const questions = await apiGetQuestions(
-    amountOfQuestions.value,
-    difficulty.value,
-    categoryID.value
-  );
+  await store.dispatch("fetchQuestions", {
+    amount: amountOfQuestions.value,
+    difficulty: difficulty.value,
+    category: categoryID.value
+  })
 
   if (data === null) {
     displayError.value = "error";
@@ -69,9 +69,9 @@ const onClickStart = async () => {
       placeholder="Enter number.."
       v-model="amountOfQuestions"
     />
-
+    
     <div class="mb-4">
-      <CategoryList @onCategorySelect="setCategoryValue"/>
+      <CategoryList @onCategorySelect="setCategoryValue" />
     </div>
   </form>
   <ViewButton

@@ -1,6 +1,6 @@
 import { QUESTION_URL } from "./";
 
-export async function apiGetQuestions(amount="10", difficulty="any", category="9") {
+export async function apiGetQuestions(amount, difficulty="any", category="9") {
     try {
         let URL = `${QUESTION_URL}.php?amount=${amount}`
 
