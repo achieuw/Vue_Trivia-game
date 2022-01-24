@@ -4,14 +4,14 @@ export async function apiGetCategories() {
     try {
         const response = await fetch(`${QUESTION_URL}_category.php`)
 
-        const { success, data, error = "Could not fetch categories" } = await response.json()
+        const data = await response.json()
 
-        if(!success) {
-            throw new Error(error)
-        }
+        // if(!success) {
+        //     throw new Error(error)
+        // }
 
-        return [null, data]
+        return data
     } catch (error) {
-        return [error.message, []]
+        return null
     }
 }

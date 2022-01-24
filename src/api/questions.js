@@ -1,8 +1,8 @@
 import { QUESTION_URL } from "./";
 
-export async function apiGetQuestions(amount, difficulty="any", category="0") {
+export async function apiGetQuestions(amount="10", difficulty="any", category="9") {
     try {
-        const URL = `${QUESTION_URL}.php?amount=${amount}`
+        let URL = `${QUESTION_URL}.php?amount=${amount}`
 
         if(category !== "0") {
             URL += `&category=${category}`
