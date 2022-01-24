@@ -24,7 +24,7 @@ const onClickView = () => {
 </script>
 
 <template>
-  <div class="flex flex-col justify-evenly items-stretch border h-full">
+  <div class="flex flex-col justify-evenly items-stretch">
     <h1 class="text-5xl text-center mt-5 mb-10">Question View</h1>
     <div class="mt-10">
       <Question />

@@ -32,7 +32,7 @@ const selectedAnswer = ref('');
 
 <template>
     <div class="border-2 border-emerald-400 flex flex-col items-center justify-end 
-    min-w-fit max-w-max rounded px-5 shadow-lg shadow-emerald-900 gap-4 relative">
+    min-w-fit rounded px-5 shadow-lg shadow-emerald-900 gap-4 relative">
         <h1 class="text-2xl text-center">Question #{{questionNumber}}</h1>
         <h2 class="text-xl max-w-xl text-center">{{decode(question.question)}}</h2>
     
