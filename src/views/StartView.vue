@@ -11,5 +11,5 @@ const handleStartGame = () => {
 
 <template>
 <h1 class="text-4xl text-center p-4">Trivia Game Start View</h1>
-<TriviaForm @onClickStart="handleStartGame"/>
+<TriviaForm @onClickSuccess="handleStartGame"/>
 </template>
