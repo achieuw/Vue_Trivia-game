@@ -10,16 +10,17 @@ export async function apiUserDataPost(username) {
             },
             body: JSON.stringify({
                 username,
-                highScore: 0
+                highScore: 0,
+                score: 0
             })
         }
 
         const response = await fetch(`${BASE_URL}`, config)
-        const { success, data, error = "An error occurred while pushing user" } = await response.json()
+        const data = await response.json()
 
-        if(!success) {
-            throw new Error(error);
-        }
+        // if(!success) {
+        //     throw new Error(error);
+        // }
         return [ null, data ]
 
     } catch (error) {
@@ -30,15 +31,15 @@ export async function apiUserDataPost(username) {
 export async function apiUserDataGet(username) {
     try {
         const response = await fetch(`${BASE_URL}?username=${username}`)
-        const { success, data, error = "An error occurred while getting user"} = await response.json()
+        const data = await response.json()
 
-        if(!success) {
-            throw new Error(error)
-        }
+        // if (response_code) {
+        //     throw new Error(error)
+        // }
 
-        return [ null, data ]
+        return data
     } catch (error) {
-        return [ error.message, null ]
+        return null
     }
 }
 
