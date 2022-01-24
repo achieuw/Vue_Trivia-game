@@ -1,9 +1,9 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import { useStore } from 'vuex';
 import ViewButton from './ViewButton.vue';
 
-defineProps({
+const props = defineProps({
     question: {
         type: Object,
         required: true
@@ -27,7 +27,13 @@ const decode = (str) => {
 }
 
 const selectedAnswer = ref('');
+//put all answers in answers array
+const answers = ref([...props.question.incorrect_answers])
+//insert value at random index
+answers.value.splice(Math.floor(Math.random()*(answers.value.length + 1)), 0, props.question.correct_answer)
 
+console.log(answers.value);
+console.log(props.question.correct_answer)
 </script>
 
 <template>
@@ -38,11 +44,7 @@ const selectedAnswer = ref('');
     
         <!-- multiple answers -->
         <div v-if="question.type === 'multiple'">
-            <div class="block hover:bg-slate-400 rounded p-1">
-                <input type="radio" :name="question.question" :id="question.correct_answer" :value="question.correct_answer" v-model="selectedAnswer">
-                <label class="mx-1" :for="question.correct_answer">{{decode(question.correct_answer)}}</label>
-            </div>
-            <div class="block hover:bg-slate-400 rounded p-1" v-for="answer in question.incorrect_answers">
+            <div class="block hover:bg-slate-400 rounded p-1" v-for="answer in answers">
                 <input type="radio" :name="question.question" :id="answer" :value="answer" v-model="selectedAnswer">
                 <label class="mx-1" :for="answer">{{decode(answer)}}</label>
             </div>

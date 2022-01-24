@@ -18,7 +18,7 @@ const increment = () => {
 
 <template>
     <div class="flex justify-center"
-    v-for="(question,index) in questions" :key="index">
-        <QuestionItem v-if="questionNumber === index + 1" :question="question" :questionNumber="index + 1" @onClickNextQuestion="increment" />
+    v-for="(question,index) in questions">
+        <QuestionItem v-if="questionNumber === index + 1" :key="index" :question="question" :questionNumber="index + 1" @onClickNextQuestion="increment" />
     </div>
 </template>
