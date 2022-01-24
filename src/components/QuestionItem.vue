@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import { useStore } from 'vuex';
 
 defineProps({
     question: {
@@ -11,8 +12,11 @@ defineProps({
 
 const emit = defineEmits(['onClickNextQuestion'])
 
+const store = useStore()
+
 const onClickNextQuestion = () => {
     //add selectedAnswer to state
+    store.commit('addAnswer', selectedAnswer.value)
     emit('onClickNextQuestion')
 }
 
@@ -24,7 +28,6 @@ const decode = (str) => {
 
 const selectedAnswer = ref('');
 
-console.log(selectedAnswer.value);
 </script>
 
 <template>
@@ -53,4 +56,5 @@ console.log(selectedAnswer.value);
     <button class="bg-emerald-400 w-30 rounded-md p-2 hover:bg-emerald-500"
     @click="onClickNextQuestion">Next Question
     </button>
+    <p>{{selectedAnswer}}</p>
 </template>

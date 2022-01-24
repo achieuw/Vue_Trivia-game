@@ -6,7 +6,8 @@ export default createStore({
         user: "",
         highScore: 0,
         score: 0,
-        questions: []
+        questions: [],
+        answers: []
     },
     getters: {
     },
@@ -19,6 +20,9 @@ export default createStore({
         },
         setQuestions: (state, questions) => {
             state.questions = questions;
+        },
+        addAnswer: (state, answer) => {
+            state.answers.push(answer)    
         }
     },
     actions: { //async calls
