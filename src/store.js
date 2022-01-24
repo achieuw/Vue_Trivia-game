@@ -9,9 +9,6 @@ export default createStore({
         questions: []
     },
     getters: {
-        getQuestions: (state) => {
-            return state.questions;
-        }
     },
     mutations: {
         setUser: (state, user) => {

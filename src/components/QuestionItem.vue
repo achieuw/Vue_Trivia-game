@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue'
 
 defineProps({
     question: {
@@ -14,6 +15,9 @@ const decode = (str) => {
     return textArea.value;
 }
 
+const selectedAnswer = ref('');
+
+console.log(selectedAnswer.value);
 </script>
 
 <template>
@@ -24,20 +28,20 @@ const decode = (str) => {
         <!-- multiple answers -->
         <div v-if="question.type === 'multiple'">
             <div class="block">
-                <input type="radio" :name="question.question" :id="question.correct_answer">
+                <input type="radio" :name="question.question" :id="question.correct_answer" :value="question.correct_answer" v-model="selectedAnswer">
                 <label :for="question.correct_answer">{{decode(question.correct_answer)}}</label>
             </div>
             <div class="block" v-for="answer in question.incorrect_answers">
-                <input  type="radio" :name="question.question" :id="answer">
+                <input  type="radio" :name="question.question" :id="answer" :value="answer" v-model="selectedAnswer">
                 <label :for="answer">{{decode(answer)}}</label>
             </div>
         </div>
     
         <!-- true / false -->
         <div v-else-if="question.type === 'boolean'">
-            <input type="radio" :name="question.question" id="true">
+            <input type="radio" :name="question.question" id="true" value="True" v-model="selectedAnswer">
             <label for="true">True</label>
-            <input type="radio" :name="question.question" id="false">
+            <input type="radio" :name="question.question" id="false" value="False" v-model="selectedAnswer">
             <label for="false">False</label>
         </div>
     </form>

@@ -12,7 +12,7 @@ import QuestionItem from './QuestionItem.vue';
 const questionNumber = ref(1)
 const store = useStore()
 
-const questions = computed(() => store.getters.getQuestions)
+const questions = computed(() => store.state.questions)
 
 const increment = () => {
     if(questionNumber.value < questions.value.length) {
