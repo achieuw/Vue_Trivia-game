@@ -14,17 +14,9 @@ const questions = computed(() => store.state.questions)
 const increment = () => {
     if(questionNumber.value < questions.value.length) {
         questionNumber.value++
+    } else {
+        emit('toResult')
     }
-}
-
-//fills answers with empty strings if 
-const onClickToResult = () => {
-    if(questionNumber.value < questions.value.length) {
-        for (let i = questionNumber.value; i <= questions.value.length; i++) {
-            store.commit('addAnswer', {answer: '', index: questionNumber.value - 1})
-        }
-    }
-    emit('toResult')
 }
 
 </script>
@@ -32,9 +24,6 @@ const onClickToResult = () => {
 <template>
     <div class="flex justify-center"
     v-for="(question,index) in questions">
-        <QuestionItem v-if="questionNumber === index + 1" :key="index" :question="question" :questionNumber="index + 1" @onClickNextQuestion="increment" />
+        <QuestionItem v-if="questionNumber === index + 1" :key="index" :question="question" :questionNumber="index + 1" :questionAmount="questions.length" @onClickNextQuestion="increment" />
     </div>
-    <ViewButton v-if="questionNumber >= questions.length" class="absolute right-1/4 bottom-1/4"
-        buttonText="Go to result" 
-        @onClick="onClickToResult"/>
 </template>
