@@ -38,13 +38,13 @@ const decode = (str) => {
         <h2> {{ decode(question.question) }} </h2>
         <div class="flex justify-evenly m-2 items-center">
             <!-- user answer -->
-            <div class="bg-[#9123f8] p-2 rounded text-white">
+            <div class="bg-[#9123f8] p-2 rounded text-white text-center">
                 <p>You answered</p>
                 <p>{{ decode(question.answer) }}</p>
             </div>
     
             <!-- correct answer -->
-            <div class="bg-[#9123f8] p-2 rounded text-white">
+            <div class="bg-[#9123f8] p-2 rounded text-white text-center">
                 <p>Correct answer</p>
                 <p>{{ decode(question.correct_answer) }}</p>
             </div>
