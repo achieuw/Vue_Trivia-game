@@ -104,7 +104,6 @@ export default createStore({
         commit("setUserID", data[0].id)
         commit("setHighScore", data[0].highScore);
 
-        console.log()
         // Post user if user does not exist
       } else {
         const [error, data] = await apiUserDataPost(username.value);
@@ -114,6 +113,7 @@ export default createStore({
         }
 
         commit("setUser", data.username);
+        commit("setUserID", data.id);
 
         localStorage.setItem("trivia-user", JSON.stringify(data));
       }
