@@ -7,24 +7,28 @@ import { useStore } from 'vuex';
 import { apiUserDataPatch } from '../api/users';
 import { computed, ref } from 'vue';
 
-const router = useRouter()
-const store = useStore()
+const router = useRouter();
+const store = useStore();
 
-const questionAmount = computed(() => store.state.questionAmount)
-const difficulty = computed(() => store.state.questionDifficulty)
-const categoryID = computed(() => store.state.categoryID)
-const sessionToken = computed(() => store.state.sessionToken)
+const questionAmount = computed(() => store.state.questionAmount);
+const difficulty = computed(() => store.state.questionDifficulty);
+const categoryID = computed(() => store.state.categoryID);
+const sessionToken = computed(() => store.state.sessionToken);
+
+const displayError = ref("")
 
 const displayError = ref('')
 
 const resetScore = () => {
-  store.commit('setScore', 0)
-}
+  store.commit("setScore", 0);
+};
 const onClickStartView = () => {
-  resetScore()
-  router.push('/')
-}
+  resetScore();
+  router.push("/");
+};
 const onClickQuestionView = async () => {
+  displayError.value = ""
+
   const error = await store.dispatch("fetchQuestions", {
     amount: questionAmount.value,
     difficulty: difficulty.value,
