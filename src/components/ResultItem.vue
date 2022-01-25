@@ -25,16 +25,16 @@ const decode = (str) => {
 
 <template>
     <div
-    class="bg-[#FCAA67f9] h-fit w-fit p-8 shadow-xl">
+    class="bg-[#FCAA67f9] h-fit w-fit p-8 shadow-xl max-w-xl text-center">
 
-    <!-- <div class="absolute inherit-dim bg-[#9123f8] -z-40 shadow-xl">
+    <div class="absolute inherit-dim bg-[#9123f8] -z-40 shadow-xl">
     </div>
     <div class="absolute inherit-dim bg-[#a195a3] -z-30 -m-2 shadow-md">
     </div>
     <div class="absolute inherit-dim bg-[#cdbccf] -z-20 -m-4 shadow-md">
     </div>
     <div class="absolute inherit-dim bg-[#E9D6EC] -z-10 -m-6 shadow-md">
-    </div> -->
+    </div>
         <h2> {{ decode(question.question) }} </h2>
         <div class="flex justify-evenly m-2 items-center">
             <!-- user answer -->
