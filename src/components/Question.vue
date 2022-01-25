@@ -34,7 +34,7 @@ const onClickToResult = () => {
     v-for="(question,index) in questions">
         <QuestionItem v-if="questionNumber === index + 1" :key="index" :question="question" :questionNumber="index + 1" @onClickNextQuestion="increment" />
     </div>
-    <ViewButton class="absolute right-1/4 bottom-1/4"
+    <ViewButton v-if="questionNumber >= questions.length" class="absolute right-1/4 bottom-1/4"
         buttonText="Go to result" 
         @onClick="onClickToResult"/>
 </template>
