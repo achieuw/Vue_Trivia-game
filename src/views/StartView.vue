@@ -1,8 +1,15 @@
 <script setup>
 import { useRouter } from "vue-router";
+import { useStore } from "vuex"
+import { onMounted } from "vue";
 import TriviaForm from "../components/TriviaForm.vue";
 
+const store = useStore();
 const router = useRouter();
+
+onMounted(async () => {
+  await store.dispatch("fetchSessionToken");
+});
 
 const handleStartGame = () => {
   router.push("Questions");

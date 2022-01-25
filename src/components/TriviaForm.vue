@@ -3,7 +3,6 @@ import { ref, onMounted, computed } from "vue";
 import { useStore } from "vuex";
 import ViewButton from "./ViewButton.vue";
 import CategoryList from "./CategoryList.vue";
-import { apiGetQuestions } from "../api/questions";
 
 const store = useStore();
 const emit = defineEmits(["onClickSuccess"]);
@@ -11,6 +10,7 @@ const username = ref("");
 const difficulty = ref("");
 const amountOfQuestions = ref(10);
 const categoryID = computed(() => store.state.categoryID);
+const sessionToken = computed(() => store.state.sessionToken);
 
 const displayError = ref("");
 
@@ -31,6 +31,7 @@ const onClickStart = async () => {
       amount: amountOfQuestions.value,
       difficulty: difficulty.value,
       category: categoryID.value,
+      sessionToken: sessionToken.value
     });
 
       emit("onClickSuccess");
