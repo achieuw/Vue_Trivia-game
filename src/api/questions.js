@@ -12,19 +12,25 @@ export async function apiGetQuestions(amount, difficulty="any", category="9", to
             URL += `&difficulty=${difficulty}`
         }
 
-        
         const response = await fetch(URL);
         
         const { response_code, results, error = "Could not fetch questions" } = await response.json()
         
-        if(response_code) {
-            throw new Error(error)
+        if(response_code === 1) {
+            throw new Error("Could not return results. The API doesn't have enough questions for your query")
+        } else if(response_code == 2) {
+            throw new Error("Contains an invalid parameter. Arguements passed in aren't valid.")
+        } else if (response_code === 3) {
+            throw new Error("Server is down")
+        } else if (response_code === 4) {
+            console.log(response_code)
+            throw new Error("Session token is invalid, please refresh the page")
         }
 
-        return [ null, results ]
+        return [null, results ]
 
     } catch (error) {
-        return [ error.message, [] ]
+        return [ error, [] ]
     }
 }
 

@@ -27,14 +27,17 @@ const onClickStart = async () => {
       username,
     });
 
-    await store.dispatch("fetchQuestions", {
+    const error = await store.dispatch("fetchQuestions", {
       amount: amountOfQuestions.value,
       difficulty: difficulty.value,
       category: categoryID.value,
       sessionToken: sessionToken.value
     });
-
-      emit("onClickSuccess");
+      if(error){
+        displayError.value = error
+      } else {
+        emit("onClickSuccess");
+      }
   } else {
     return null;
   }
