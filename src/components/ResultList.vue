@@ -18,8 +18,8 @@ onMounted(async () => {
 </script>
 
 <template>
-    <h1>ResultList</h1>
-    <div>
+    <h1 class="text-center">ResultList</h1>
+    <div class="flex flex-col gap-4 items-center">
         <ResultItem v-for="(question, index) in questions" :key="index" :question="question" :index="index"/>
     </div>
 </template>
