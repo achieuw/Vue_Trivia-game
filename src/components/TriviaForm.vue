@@ -3,31 +3,41 @@ import { ref, onMounted, computed } from "vue";
 import { useStore } from "vuex";
 import ViewButton from "./ViewButton.vue";
 import CategoryList from "./CategoryList.vue";
+import { apiGetAmountOfQuestions } from "../api/categories";
 
 const store = useStore();
 const emit = defineEmits(["onClickSuccess"]);
 const username = ref("");
 const difficulty = ref("any");
-const amountOfQuestions = ref(10);
+const amountOfQuestions = ref(1);
 const categoryID = computed(() => store.state.categoryID);
 const sessionToken = computed(() => store.state.sessionToken);
-
+const maxAmountOfQuestions = ref(50)
 const displayError = ref("");
 
 onMounted(async () => {
   await store.dispatch("fetchCategories");
 });
 
-const setQuestionAmount = () => {
+const getMaxAmountOfQuestions = async () => {
+  maxAmountOfQuestions.value = await apiGetAmountOfQuestions(difficulty.value)
+  if(amountOfQuestions.value > maxAmountOfQuestions.value) {
+    amountOfQuestions.value = maxAmountOfQuestions.value
+  }
+}
+
+const setQuestionAmount = async () => {
   store.commit("setQuestionAmount", amountOfQuestions.value)
+  getMaxAmountOfQuestions()
 }
 
 const setDifficulty = () => {
   store.commit("setQuestionDifficulty", difficulty.value)
+  getMaxAmountOfQuestions()
 }
 
 const setCategoryValue = (value) => {
-  categoryID = value;
+  getMaxAmountOfQuestions()
 };
 const onClickStart = async () => {
   if (validUserInput(username.value)) {
@@ -104,7 +114,7 @@ const validUserInput = (name) => {
         class="mb-4 border-b-1 w-36 outline-none text-black grow-on-focus"
         type="number"
         min="1"
-        max="50"
+        :max="maxAmountOfQuestions"
         placeholder="Enter number.."
         v-model="amountOfQuestions"
         @change="setQuestionAmount"

@@ -10,6 +10,7 @@ const categoryID = ref(0)
 
 const setCategoryID = () => {
     store.commit("setCategoryID", categoryID.value)
+    emit("onCategorySelect")
 }
 </script>
 
