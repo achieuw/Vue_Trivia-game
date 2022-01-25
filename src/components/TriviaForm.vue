@@ -44,7 +44,8 @@ const onClickStart = async () => {
   <div
     id="form-container"
     ref="form-container"
-    class="w-96 h-96 bg-[#FCAA67f9] px-8 py-8 mt-20 shadow-xl"
+    class="w-96 h-96 bg-[#FCAA67f9] px-8 py-8 mt-20 shadow-xl
+    ml-6"
   >
 
   <div class="absolute inherit-dim bg-[#9123f8] -z-40 shadow-xl">
