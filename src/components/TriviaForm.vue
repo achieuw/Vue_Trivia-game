@@ -112,7 +112,7 @@ const validUserInput = (name) => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .border-b-1 {
   border-bottom: 1px solid gray;
 }
@@ -122,8 +122,7 @@ const validUserInput = (name) => {
 .grow-on-focus {
   transition: 0.3s;
 }
-.grow-on-focus:focus,
-.grow-on-focus:focus option {
+.grow-on-focus:focus, .grow-on-focus:focus option {
   padding: 6px;
   width: 80%;
   transition: 0.3s;

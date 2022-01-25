@@ -26,7 +26,6 @@ const setCategoryID = () => {
   padding: 6px;
   width: 100%;
   transition: 0.3s;
-  background-color: #fcaa67;
 }
 
 </style>
