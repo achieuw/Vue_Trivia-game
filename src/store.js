@@ -30,6 +30,9 @@ export default createStore({
         answer = "N/A"
       }
       state.questions[index].answer = answer;
+      if(state.questions[index].correct_answer === answer ){
+        state.score++;
+      }
     },
     setCategoryID: (state, id) => {
       state.categoryID = id;
