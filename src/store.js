@@ -38,7 +38,7 @@ export default createStore({
       }
       state.questions[index].answer = answer;
       if(state.questions[index].correct_answer === answer ){
-        state.score++;
+        state.score += 10;
       }
     },
     setQuestionAmount: (state, amount) => {
