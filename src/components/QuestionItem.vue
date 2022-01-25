@@ -8,19 +8,32 @@ const props = defineProps({
         type: Object,
         required: true
     },
-    questionNumber: Number
+    questionNumber: Number,
+    questionAmount: Number
 })
 
 const emit = defineEmits(['onClickNextQuestion'])
 
 const store = useStore()
 
+const displayError = ref('')
+const buttonText = ref('Next Question')
+
+if(props.questionNumber === props.questionAmount) {
+    buttonText.value = 'Go to results'
+}
+
 const onClickNextQuestion = () => {
-    store.commit('addAnswer', { 
+    displayError.value = ""
+    if(selectedAnswer.value !== ""){
+        store.commit('addAnswer', { 
         answer: selectedAnswer.value,
         index: (props.questionNumber - 1)
-    });
-    emit('onClickNextQuestion')
+        });
+        emit('onClickNextQuestion')
+    } else {
+        displayError.value = "Please answer the question before proceeding"
+    }
 }
 
 const decode = (str) => {
@@ -70,7 +83,10 @@ answers.value.splice(Math.floor(Math.random()*(answers.value.length + 1)), 0, pr
                 <label class="mx-1" for="false">False</label>
             </div>
         </div>
-        <ViewButton class="self-end mb-2 " buttonText="Next Question" @onClick="onClickNextQuestion"/>
+        <ViewButton class="self-end mb-2 " :buttonText="buttonText" @onClick="onClickNextQuestion"/>
+    </div>
+    <div v-if="displayError !== ''" class="fixed right-0 bg-[#FCAA67] p-2 animate-bounce">
+        <p class="text-red-700"> {{ displayError }} </p>
     </div>
 </template>
 

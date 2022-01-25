@@ -63,7 +63,7 @@ const onClickStart = async () => {
 
 const validUserInput = (name) => {
   if (name.length < 3) {
-    displayError.value = "Username must contain atleast 3 characters";
+    displayError.value = "Username must contain at least 3 characters";
     return false;
   } else {
     displayError.value = "";

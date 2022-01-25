@@ -7,16 +7,6 @@ import Question from '../components/Question.vue';
 
 
 const router = useRouter()
-const store = useStore();
-
-// onMounted(async () => {
-//   console.log("hej");
-//   await store.dispatch("fetchQuestions", {
-//     amount: 10,
-//     difficulty: "any",
-//     category: "0"
-//   })
-// })
 
 const onClickView = () => {
   router.push('Result')
