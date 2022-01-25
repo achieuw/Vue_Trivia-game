@@ -1,11 +1,12 @@
 import { createStore } from "vuex";
 import { apiGetQuestions, apiGetSessionToken } from "./api/questions";
 import { apiGetCategories } from "./api/categories";
-import { apiUserDataGet, apiUserDataPost } from "./api/users";
+import { apiUserDataGet, apiUserDataPatch, apiUserDataPost } from "./api/users";
 
 export default createStore({
   state: {
     user: "",
+    id: 0,
     highScore: 0,
     score: 0,
     questions: [],
@@ -19,6 +20,9 @@ export default createStore({
   mutations: {
     setUser: (state, user) => {
       state.user = user;
+    },
+    setUserID: (state, id) => {
+      state.id = id;
     },
     setHighScore: (state, highScore) => {
       state.highScore = highScore;
@@ -43,6 +47,9 @@ export default createStore({
     },
     setSessionToken: (state, token) => {
       state.sessionToken = token;
+    },
+    setScore: (state, score) => {
+      state.score = score
     }
   },
   actions: {
@@ -84,10 +91,12 @@ export default createStore({
       const data = await apiUserDataGet(username.value);
 
       // Get user data if user exist
-      if (data.length !== 0) {
+      if (data !== null) {
         commit("setUser", username.value);
+        commit("setUserID", data[0].id)
         commit("setHighScore", data[0].highScore);
 
+        console.log()
         // Post user if user does not exist
       } else {
         const [error, data] = await apiUserDataPost(username.value);
@@ -102,5 +111,11 @@ export default createStore({
       }
       return data;
     },
+    async updateUserScore( { commit }, { id, highScore }) {
+      await apiUserDataPatch(id, highScore)
+      commit("setHighScore", highScore)
+
+      return null
+    }
   },
 });

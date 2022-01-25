@@ -43,7 +43,7 @@ export async function apiUserDataGet(username) {
     }
 }
 
-export async function apiUserDataPatch(username, highScore) {
+export async function apiUserDataPatch(id, highScore) {
     try {
         const config = {
             method: "PATCH",
@@ -52,19 +52,17 @@ export async function apiUserDataPatch(username, highScore) {
                 "content-type": "application/json"
             },
             body: JSON.stringify({
-                highScore
+                highScore: highScore
             })
         }
 
-        const response = await fetch(`${BASE_URL}/${username}`, config)
-        const { success, data, error = "An error occurred while patching user" } = await response.json()
-
-        if(!success) {
-            throw new Error(error)
+        const response = await fetch(`${BASE_URL}/${id}`, config)
+        if(!response.ok){
+            throw new Error("Could not update high score")
         }
+        return await response.json()
 
-        return [ null, data ]
     } catch (error) {
-        return [ error.message, null ]
+        return null
     }
 }

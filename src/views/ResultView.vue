@@ -3,13 +3,21 @@ import { useRouter } from 'vue-router';
 import ViewButton from '../components/ViewButton.vue'
 import ResultList from '../components/ResultList.vue';
 import ResultScore from '../components/ResultScore.vue';
+import { useStore } from 'vuex';
+import { apiUserDataPatch } from '../api/users';
 
 const router = useRouter()
+const store = useStore()
 
+const resetScore = () => {
+  store.commit('setScore', 0)
+}
 const onClickStartView = () => {
+  resetScore()
   router.push('/')
 }
 const onClickQuestionView = () => {
+  resetScore()
   router.push('/Questions')
 }
 </script>
