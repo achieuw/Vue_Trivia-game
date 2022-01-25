@@ -9,8 +9,6 @@ const score = computed(() => store.state.score);
 const highScore = computed(() => store.state.highScore);
 const userID = computed(() => store.state.id);
 
-console.log(userID.value)
-
 onMounted(async () => {
   
   if (score.value > highScore.value) {

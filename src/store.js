@@ -12,6 +12,8 @@ export default createStore({
     questions: [],
     answers: [],
     categories: [],
+    questionAmount: 10,
+    questionDifficulty: "any",
     categoryID: 0,
     sessionToken: ""
   },
@@ -38,6 +40,12 @@ export default createStore({
       if(state.questions[index].correct_answer === answer ){
         state.score++;
       }
+    },
+    setQuestionAmount: (state, amount) => {
+      state.questionAmount = amount
+    },
+    setQuestionDifficulty: (state, difficulty) => {
+      state.questionDifficulty = difficulty
     },
     setCategoryID: (state, id) => {
       state.categoryID = id;
