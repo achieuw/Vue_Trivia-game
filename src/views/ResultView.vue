@@ -15,8 +15,6 @@ const difficulty = computed(() => store.state.questionDifficulty);
 const categoryID = computed(() => store.state.categoryID);
 const sessionToken = computed(() => store.state.sessionToken);
 
-const displayError = ref("")
-
 const displayError = ref('')
 
 const resetScore = () => {
