@@ -25,7 +25,7 @@ const decode = (str) => {
 
 <template>
     <div
-    class="bg-[#FCAA67f9] h-fit w-fit p-8 shadow-xl max-w-xl text-center">
+    class="flex flex-col gap-2 bg-[#FCAA67f9] h-56 w-[36rem] p-8 shadow-xl text-center">
 
     <div class="absolute inherit-dim bg-[#9123f8] -z-40 shadow-xl">
     </div>
