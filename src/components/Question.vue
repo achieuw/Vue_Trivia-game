@@ -21,7 +21,7 @@ const increment = () => {
 const onClickToResult = () => {
     if(questionNumber.value < questions.value.length) {
         for (let i = questionNumber.value; i <= questions.value.length; i++) {
-            store.commit('addAnswer', '')
+            store.commit('addAnswer', {answer: '', index: questionNumber.value - 1})
         }
     }
     emit('toResult')

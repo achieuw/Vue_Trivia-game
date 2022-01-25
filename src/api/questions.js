@@ -1,8 +1,8 @@
-import { QUESTION_URL } from "./";
+import { QUESTION_URL, TOKEN_URL } from "./";
 
-export async function apiGetQuestions(amount, difficulty="any", category="9") {
+export async function apiGetQuestions(amount, difficulty="any", category="9", token) {
     try {
-        let URL = `${QUESTION_URL}.php?amount=${amount}`
+        let URL = `${QUESTION_URL}.php?amount=${amount}&token=${token}`
 
         if(category !== 0) {
             URL += `&category=${category}`
@@ -25,5 +25,23 @@ export async function apiGetQuestions(amount, difficulty="any", category="9") {
 
     } catch (error) {
         return [ error.message, [] ]
+    }
+}
+
+export async function apiGetSessionToken(){
+    try {
+        let URL = `${QUESTION_URL}${TOKEN_URL}`
+        
+
+        const response = await fetch(URL)
+        const { response_code, message, token} = await response.json()
+        
+        if(!response_code === 0) {
+            throw new Error(message)
+        }
+
+        return token
+    } catch(error) {
+        return error
     }
 }

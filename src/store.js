@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import { apiGetQuestions } from "./api/questions";
+import { apiGetQuestions, apiGetSessionToken } from "./api/questions";
 import { apiGetCategories } from "./api/categories";
 import { apiUserDataGet, apiUserDataPost } from "./api/users";
 
@@ -12,6 +12,7 @@ export default createStore({
     answers: [],
     categories: [],
     categoryID: 0,
+    sessionToken: ""
   },
   getters: {
   },
@@ -40,14 +41,18 @@ export default createStore({
     setCategories: (state, categories) => {
       state.categories = categories;
     },
+    setSessionToken: (state, token) => {
+      state.sessionToken = token;
+    }
   },
   actions: {
     //async calls
-    async fetchQuestions({ commit }, { amount, difficulty, category }) {
+    async fetchQuestions({ commit }, { amount, difficulty, category, sessionToken }) {
       const [error, questions] = await apiGetQuestions(
         amount,
         difficulty,
-        category
+        category,
+        sessionToken
       );
 
       if (error !== null) {
@@ -57,6 +62,13 @@ export default createStore({
       commit("setQuestions", questions);
       return null;
     },
+
+    async fetchSessionToken({commit}){
+      const token = await apiGetSessionToken()
+
+      commit("setSessionToken", token)
+    },
+
     //async calls
     async fetchCategories({ commit }) {
       const categories = await apiGetCategories();
