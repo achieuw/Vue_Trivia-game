@@ -11,7 +11,7 @@ export default createStore({
     questions: [],
     answers: [],
     categories: [],
-    categoryID: 9,
+    categoryID: 0,
     sessionToken: ""
   },
   getters: {
