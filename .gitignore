@@ -3,3 +3,8 @@ node_modules
 dist
 dist-ssr
 *.local
+.vscode
+.idea 
+*.log
+.DS_STORE
+thumbs.db
