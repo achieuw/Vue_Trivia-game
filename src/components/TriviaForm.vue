@@ -22,20 +22,30 @@ const setCategoryValue = (value) => {
   categoryID = value;
 };
 const onClickStart = async () => {
-  const data = await store.dispatch("fetchUser", {
-    username,
-  });
+  if (validUserInput(username.value)) {
+    await store.dispatch("fetchUser", {
+      username,
+    });
 
-  await store.dispatch("fetchQuestions", {
-    amount: amountOfQuestions.value,
-    difficulty: difficulty.value,
-    category: categoryID.value,
-  });
+    await store.dispatch("fetchQuestions", {
+      amount: amountOfQuestions.value,
+      difficulty: difficulty.value,
+      category: categoryID.value,
+    });
 
-  if (data === null) {
-    displayError.value = "error";
+      emit("onClickSuccess");
   } else {
-    emit("onClickSuccess");
+    return null;
+  }
+};
+
+const validUserInput = (name) => {
+  if (name.length < 3) {
+    displayError.value = "Username must contain atleast 3 characters";
+    return false;
+  } else {
+    displayError.value = "";
+    return true;
   }
 };
 </script>
@@ -44,19 +54,13 @@ const onClickStart = async () => {
   <div
     id="form-container"
     ref="form-container"
-    class="w-96 h-96 bg-[#FCAA67f9] px-8 py-8 mt-20 shadow-xl
-    ml-6"
+    class="w-96 h-96 bg-[#FCAA67f9] px-8 py-8 mt-20 shadow-xl ml-6"
   >
+    <div class="absolute inherit-dim bg-[#9123f8] -z-40 shadow-xl"></div>
+    <div class="absolute inherit-dim bg-[#a195a3] -z-30 -m-2 shadow-md"></div>
+    <div class="absolute inherit-dim bg-[#cdbccf] -z-20 -m-4 shadow-md"></div>
+    <div class="absolute inherit-dim bg-[#E9D6EC] -z-10 -m-6 shadow-md"></div>
 
-  <div class="absolute inherit-dim bg-[#9123f8] -z-40 shadow-xl">
-  </div>
-  <div class="absolute inherit-dim bg-[#a195a3] -z-30 -m-2 shadow-md">
-  </div>
-  <div class="absolute inherit-dim bg-[#cdbccf] -z-20 -m-4 shadow-md">
-  </div>
-  <div class="absolute inherit-dim bg-[#E9D6EC] -z-10 -m-6 shadow-md">
-  </div>
-    
     <form class="flex flex-col font-semibold">
       <label for="username">Username: </label>
       <input
@@ -68,7 +72,11 @@ const onClickStart = async () => {
       />
 
       <label for="difficulty">Difficulty: </label>
-      <select class="mb-4 w-36 text-black" id="difficulty grow-on-focus" v-model="difficulty">
+      <select
+        class="mb-4 w-36 text-black"
+        id="difficulty grow-on-focus"
+        v-model="difficulty"
+      >
         <option value="" selected disabled hidden>Any</option>
         <option value="any">Any</option>
         <option value="easy">Easy</option>
@@ -82,6 +90,8 @@ const onClickStart = async () => {
         id="amount-of-questions"
         class="mb-4 border-b-1 w-36 outline-none text-black grow-on-focus"
         type="number"
+        min="1"
+        max="50"
         placeholder="Enter number.."
         v-model="amountOfQuestions"
       />
@@ -97,7 +107,7 @@ const onClickStart = async () => {
       @onClick="onClickStart"
     />
 
-    <p>{{ displayError }}</p>
+    <p class="text-red-700">{{ displayError }}</p>
   </div>
 </template>
 
@@ -108,16 +118,17 @@ const onClickStart = async () => {
 .border-b-1:focus {
   border-bottom: 1px solid #34d399;
 }
-.grow-on-focus{
-  transition: 0.3s
+.grow-on-focus {
+  transition: 0.3s;
 }
-.grow-on-focus:focus, .grow-on-focus:focus option {
+.grow-on-focus:focus,
+.grow-on-focus:focus option {
   padding: 6px;
   width: 80%;
   transition: 0.3s;
   background-color: #fcaa67;
 }
-.inherit-dim{
+.inherit-dim {
   width: inherit;
   height: inherit;
 }
