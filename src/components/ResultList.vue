@@ -7,13 +7,13 @@ const store = useStore();
 
 const questions = computed(() => store.state.questions)
 
-onMounted(async () => {
-    await store.dispatch("fetchQuestions", {
-        amount: 10,
-        difficulty: "any",
-        category: "0"
-    })
-})
+// onMounted(async () => {
+//     await store.dispatch("fetchQuestions", {
+//         amount: 10,
+//         difficulty: "any",
+//         category: "0"
+//     })
+// })
 
 </script>
 
