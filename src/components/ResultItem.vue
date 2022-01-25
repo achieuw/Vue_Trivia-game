@@ -8,14 +8,6 @@ const props = defineProps({
     index: Number
 })
 
-const store = useStore();
-
-// for testing
-store.commit("addAnswer", {
-    answer: props.question.correct_answer,
-    index: props.index
-})
-
 const decode = (str) => {
     let textArea = document.createElement('textarea')
     textArea.innerHTML = str;
