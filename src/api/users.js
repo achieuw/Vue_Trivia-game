@@ -1,5 +1,6 @@
 import { BASE_URL, API_KEY } from "./";
 
+// Post new user data to API
 export async function apiUserDataPost(username) {
     try {
         const config = {
@@ -17,9 +18,6 @@ export async function apiUserDataPost(username) {
         const response = await fetch(`${BASE_URL}`, config)
         const data = await response.json()
 
-        // if(!success) {
-        //     throw new Error(error);
-        // }
         return [ null, data ]
 
     } catch (error) {
@@ -27,6 +25,7 @@ export async function apiUserDataPost(username) {
     }
 }
 
+// Get available user data from API
 export async function apiUserDataGet(username) {
     try {
         const response = await fetch(`${BASE_URL}?username=${username}`)
@@ -42,6 +41,7 @@ export async function apiUserDataGet(username) {
     }
 }
 
+// Write new data to existing user in the API
 export async function apiUserDataPatch(id, highScore) {
     try {
         const config = {

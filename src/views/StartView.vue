@@ -7,10 +7,11 @@ import TriviaForm from "../components/TriviaForm.vue";
 const store = useStore();
 const router = useRouter();
 
+// Renews session token for trivia API
 onMounted(async () => {
   await store.dispatch("fetchSessionToken");
 });
-
+// Route to question view on game start
 const handleStartGame = () => {
   router.push("Questions");
 };

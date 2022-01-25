@@ -1,17 +1,13 @@
 import { QUESTION_URL } from "./";
 import store from "../store"
 
+// Max amount of questions to fetch from API (50 is maximum atm)
 const maxAmountOfQuestions = 50;
 
 export async function apiGetCategories() {
     try {
         const response = await fetch(`${QUESTION_URL}_category.php`)
-
         const data = await response.json()
-
-        // if(!success) {
-        //     throw new Error(error)
-        // }
 
         return data
     } catch (error) {
@@ -19,11 +15,13 @@ export async function apiGetCategories() {
     }
 }
 
+// Return the maximum amount of questions available for specific difficulty/category
 export async function apiGetAmountOfQuestions(difficulty) {
     try {
         let url = ""
 
-        if(store.state.categoryID > 8){
+        // Category ID starts at 9, also handles category "any" (ID = "")
+        if(store.state.categoryID > 8) {
             url = "_count.php?category=" + store.state.categoryID
         } else {
             return maxAmountOfQuestions
@@ -32,7 +30,7 @@ export async function apiGetAmountOfQuestions(difficulty) {
         const response = await fetch(`${QUESTION_URL}${url}`)
         const {category_question_count} = await response.json()
         
-        if(difficulty === "easy"){
+        if(difficulty === "easy") {
             if(category_question_count.total_easy_question_count > maxAmountOfQuestions){
                 return maxAmountOfQuestions
             } else {
@@ -50,16 +48,15 @@ export async function apiGetAmountOfQuestions(difficulty) {
             } else {
                 return category_question_count.total_hard_question_count
             }
-        } else {
+        } else { // handles difficulty: "any"
             if(category_question_count.total_question_count > maxAmountOfQuestions){
                 return maxAmountOfQuestions
             } else {
                 return category_question_count.total_question_count
             }
         }
-        
-
-    } catch (error){
+    } 
+    catch (error) {
         return null
     }
 }

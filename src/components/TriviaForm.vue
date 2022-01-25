@@ -15,10 +15,12 @@ const sessionToken = computed(() => store.state.sessionToken);
 const maxAmountOfQuestions = ref(50)
 const displayError = ref("");
 
+// Fetch categories for the category list
 onMounted(async () => {
   await store.dispatch("fetchCategories");
 });
 
+// Get maximum questions available for difficulty/category and set amount of questions
 const getMaxAmountOfQuestions = async () => {
   maxAmountOfQuestions.value = await apiGetAmountOfQuestions(difficulty.value)
   if(amountOfQuestions.value > maxAmountOfQuestions.value) {
@@ -26,19 +28,24 @@ const getMaxAmountOfQuestions = async () => {
   }
 }
 
+// Update amount of questions value in state and max amount of questions on amount change
 const setQuestionAmount = async () => {
   store.commit("setQuestionAmount", amountOfQuestions.value)
   getMaxAmountOfQuestions()
 }
 
+// Update difficulty value in state and max amount of questions on difficulty change
 const setDifficulty = () => {
   store.commit("setQuestionDifficulty", difficulty.value)
   getMaxAmountOfQuestions()
 }
 
+// Update max amount of questions on category change
 const setCategoryValue = (value) => {
   getMaxAmountOfQuestions()
 };
+
+// Fetch questions on game start and route to question view
 const onClickStart = async () => {
   if (validUserInput(username.value)) {
     await store.dispatch("fetchUser", {
@@ -61,6 +68,7 @@ const onClickStart = async () => {
   }
 };
 
+// Check for valid user input (currently all symbols allowed)
 const validUserInput = (name) => {
   if (name.length < 3) {
     displayError.value = "Username must contain at least 3 characters";
@@ -83,6 +91,7 @@ const validUserInput = (name) => {
     <div class="absolute inherit-dim bg-[#cdbccf] -z-20 -m-4 shadow-md"></div>
     <div class="absolute inherit-dim bg-[#E9D6EC] -z-10 -m-6 shadow-md"></div>
 
+    <!-- Form Component -->
     <form class="flex flex-col font-semibold">
       <label for="username">Username: </label>
       <input
@@ -130,7 +139,7 @@ const validUserInput = (name) => {
       buttonText="Start Game"
       @onClick="onClickStart"
     />
-
+    <!-- Error text for failed api requests/validation -->
     <p class="text-red-700">{{ displayError }}</p>
   </div>
 </template>
