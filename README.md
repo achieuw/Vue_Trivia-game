@@ -40,7 +40,7 @@
     <a href="https://github.com/achieuw/Vue_Trivia-game"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/achieuw/Vue_Trivia-game">View Demo</a>
+    <a href="https://frozen-ocean-72965.herokuapp.com/">View Demo</a>
     ·
     <a href="https://github.com/achieuw/Vue_Trivia-game/issues">Report Bug</a>
     ·
@@ -146,6 +146,10 @@ Install [Nodejs](https://nodejs.org/en/) (LTS version recommended)
     ```sh
     npm run dev
     ```
+
+#### OR
+
+Visit the deployed application on <a href="https://frozen-ocean-72965.herokuapp.com/">Heroku</a>
   
 
 <!-- _For more examples, please refer to the [Documentation](https://example.com)_ -->
