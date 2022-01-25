@@ -4,7 +4,7 @@ export async function apiGetQuestions(amount, difficulty="any", category="9") {
     try {
         let URL = `${QUESTION_URL}.php?amount=${amount}`
 
-        if(category !== "0") {
+        if(category !== 0) {
             URL += `&category=${category}`
         }
 

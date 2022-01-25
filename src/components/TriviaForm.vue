@@ -69,12 +69,13 @@ const validUserInput = (name) => {
         type="text"
         placeholder="Enter username.."
         v-model="username"
+        autocomplete="off"
       />
 
       <label for="difficulty">Difficulty: </label>
       <select
-        class="mb-4 w-36 text-black"
-        id="difficulty grow-on-focus"
+        class="mb-4 w-36 text-black grow-on-focus"
+        id="difficulty"
         v-model="difficulty"
       >
         <option value="" selected disabled hidden>Any</option>
@@ -83,7 +84,6 @@ const validUserInput = (name) => {
         <option value="medium">Medium</option>
         <option value="hard">Hard</option>
       </select>
-      <p>{{ difficulty }}</p>
 
       <label for="amount-of-questions">Number of Questions: </label>
       <input
