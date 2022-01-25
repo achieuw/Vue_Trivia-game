@@ -10,8 +10,7 @@ export async function apiUserDataPost(username) {
             },
             body: JSON.stringify({
                 username,
-                highScore: 0,
-                score: 0
+                highScore: 0
             })
         }
 
@@ -33,9 +32,9 @@ export async function apiUserDataGet(username) {
         const response = await fetch(`${BASE_URL}?username=${username}`)
         const data = await response.json()
 
-        // if (response_code) {
-        //     throw new Error(error)
-        // }
+        if (data.length === 0) {
+            throw new Error(error)
+        }
 
         return data
     } catch (error) {
