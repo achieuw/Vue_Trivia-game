@@ -18,6 +18,7 @@ const onClickStartView = () => {
 }
 const onClickQuestionView = () => {
   resetScore()
+  // store.dispatch("")
   router.push('/Questions')
 }
 </script>

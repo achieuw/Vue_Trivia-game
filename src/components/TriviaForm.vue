@@ -7,7 +7,7 @@ import CategoryList from "./CategoryList.vue";
 const store = useStore();
 const emit = defineEmits(["onClickSuccess"]);
 const username = ref("");
-const difficulty = ref("");
+const difficulty = ref("any");
 const amountOfQuestions = ref(10);
 const categoryID = computed(() => store.state.categoryID);
 const sessionToken = computed(() => store.state.sessionToken);
@@ -17,6 +17,14 @@ const displayError = ref("");
 onMounted(async () => {
   await store.dispatch("fetchCategories");
 });
+
+const setQuestionAmount = () => {
+  store.commit("setQuestionAmount", amountOfQuestions.value)
+}
+
+const setDifficulty = () => {
+  store.commit("setQuestionDifficulty", difficulty.value)
+}
 
 const setCategoryValue = (value) => {
   categoryID = value;
@@ -78,8 +86,9 @@ const validUserInput = (name) => {
         class="mb-4 w-36 text-black grow-on-focus"
         id="difficulty"
         v-model="difficulty"
+        @change="setDifficulty"
       >
-        <option value="" selected disabled hidden>Any</option>
+        <!-- <option value="" selected disabled hidden>Any</option> -->
         <option value="any">Any</option>
         <option value="easy">Easy</option>
         <option value="medium">Medium</option>
@@ -95,6 +104,7 @@ const validUserInput = (name) => {
         max="50"
         placeholder="Enter number.."
         v-model="amountOfQuestions"
+        @change="setQuestionAmount"
       />
 
       <div class="mb-4">
