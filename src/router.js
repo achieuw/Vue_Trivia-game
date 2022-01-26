@@ -12,6 +12,14 @@ const authGuard = (to, from, next) => {
   }
 }
 
+const resultQuestionGuard = (to, from, next) => {
+  if(store.state.questions && store.state.questions[store.state.questions.length - 1].answer) {
+    next('/Result')
+  } else {
+    next()
+  }
+}
+
 const routes = [
   {
     path: '/',
@@ -20,7 +28,7 @@ const routes = [
   {
     path: '/Questions',
     component: QuestionView,
-    beforeEnter: authGuard
+    beforeEnter: [authGuard, resultQuestionGuard]
   },
   {
     path: '/Result',
