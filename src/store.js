@@ -137,8 +137,8 @@ export default createStore({
     },
     // update user score
     async updateUserScore( { commit }, { id, highScore }) {
-      await apiUserDataPatch(id, highScore) // patch highscore on api
       commit("setHighScore", highScore) // set highscore
+      await apiUserDataPatch(id, highScore) // patch highscore on api
 
       return null
     }

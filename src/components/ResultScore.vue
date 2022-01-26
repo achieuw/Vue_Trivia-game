@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted } from "vue";
+import { computed, onBeforeMount } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore();
@@ -10,7 +10,7 @@ const highScore = computed(() => store.state.highScore);
 const userID = computed(() => store.state.id);
 
 // Checks if score is greater than highscore and updates it in state and on API
-onMounted(async () => {
+onBeforeMount(async () => {
   if (score.value > highScore.value) {
     await store.dispatch('updateUserScore', {id: userID.value, highScore: score.value})
   }
