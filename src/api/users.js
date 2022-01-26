@@ -62,6 +62,6 @@ export async function apiUserDataPatch(id, highScore) {
         return await response.json()
 
     } catch (error) {
-        return null
+        return error.message
     }
 }

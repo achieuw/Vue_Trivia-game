@@ -99,13 +99,22 @@ export default createStore({
     },
     // fetch session token
     async fetchSessionToken({commit}){
-      const token = await apiGetSessionToken()
+      const [error, token] = await apiGetSessionToken()
+
+      if(error) {
+        return error;
+      }
 
       commit("setSessionToken", token) // set token
+      return null;
     },
     // fetch categories
     async fetchCategories({ commit }) {
-      const categories = await apiGetCategories();
+      const [error, categories] = await apiGetCategories();
+
+      if(error) { // return error, handle error at call
+        return error;
+      }
 
       commit("setCategories", categories); // set categories
       return null;

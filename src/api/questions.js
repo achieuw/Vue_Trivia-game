@@ -48,8 +48,8 @@ export async function apiGetSessionToken(){
             throw new Error(message)
         }
 
-        return token
+        return [null, token]
     } catch(error) {
-        return error
+        return [error.message, null]
     }
 }

@@ -22,7 +22,11 @@ onMounted(async () => {
 
 // Get maximum questions available for difficulty/category and set amount of questions
 const getMaxAmountOfQuestions = async () => {
-  maxAmountOfQuestions.value = await apiGetAmountOfQuestions(difficulty.value)
+  const [error, maxAmount] = await apiGetAmountOfQuestions(difficulty.value)
+  if (error) {
+    return;
+  }
+  maxAmountOfQuestions.value = maxAmount
   if(amountOfQuestions.value > maxAmountOfQuestions.value) {
     amountOfQuestions.value = maxAmountOfQuestions.value
   }

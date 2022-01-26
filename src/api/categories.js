@@ -7,11 +7,17 @@ const maxAmountOfQuestions = 50;
 export async function apiGetCategories() {
     try {
         const response = await fetch(`${QUESTION_URL}_category.php`)
+
+        
+        if(!response.ok) {
+            throw new Error("Could not fetch categories");
+        }
+
         const data = await response.json()
 
-        return data
+        return [null, data ]
     } catch (error) {
-        return null
+        return [ error.message, []]
     }
 }
 
@@ -28,35 +34,37 @@ export async function apiGetAmountOfQuestions(difficulty) {
         }
 
         const response = await fetch(`${QUESTION_URL}${url}`)
+
+        if(!response.ok) {
+            throw new Error("Could not fetch amount of category questions")
+        }
+
         const {category_question_count} = await response.json()
-        
-        if(difficulty === "easy") {
-            if(category_question_count.total_easy_question_count > maxAmountOfQuestions){
-                return maxAmountOfQuestions
-            } else {
-                return category_question_count.total_easy_question_count
-            }
-        } else if(difficulty === "medium") {
-            if(category_question_count.total_medium_question_count > maxAmountOfQuestions){
-                return maxAmountOfQuestions
-            } else {
-                return category_question_count.total_medium_question_count
-            }
-        } else if(difficulty === "hard") {
-            if(category_question_count.total_hard_question_count > maxAmountOfQuestions){
-                return maxAmountOfQuestions
-            } else {
-                return category_question_count.total_hard_question_count
-            }
-        } else { // handles difficulty: "any"
-            if(category_question_count.total_question_count > maxAmountOfQuestions){
-                return maxAmountOfQuestions
-            } else {
-                return category_question_count.total_question_count
-            }
+
+        let categoryQuestionAmount = 0;
+
+        switch (difficulty) {
+            case "easy":
+                categoryQuestionAmount = category_question_count.total_easy_question_count;
+                break;
+            case "medium":
+                categoryQuestionAmount = category_question_count.total_medium_question_count;
+                break;
+            case "hard":
+                categoryQuestionAmount = category_question_count.total_hard_question_count;
+                break;
+            default: // if difficulty is any
+                categoryQuestionAmount = category_question_count.total_question_count
+                break;
+        }
+
+        if(categoryQuestionAmount > maxAmountOfQuestions){
+            return [null, maxAmountOfQuestions]
+        } else {
+            return [null, categoryQuestionAmount]
         }
     } 
     catch (error) {
-        return null
+        return [error.message, null]
     }
 }
