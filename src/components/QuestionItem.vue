@@ -40,13 +40,6 @@ const onClickNextQuestion = () => {
     }
 }
 
-// decodes text with html codes
-const decode = (str) => {
-    let textArea = document.createElement('textarea')
-    textArea.innerHTML = str;
-    return textArea.value;
-}
-
 const selectedAnswer = ref('');
 //put all incorrect_answers in answers array
 const answers = ref([...props.question.incorrect_answers])
@@ -66,7 +59,8 @@ answers.value.splice(Math.floor(Math.random()*(answers.value.length + 1)), 0, pr
     <div class="absolute inherit-dim bg-[#9123f8] -z-40 my-8 mx-3 shadow-xl"></div>
 
         <h1 class="text-2xl text-center">Question #{{questionNumber}}</h1>
-        <h2 class="text-xl max-w-xl text-center">{{decode(question.question)}}</h2>
+        <!-- v-html to decode question -->
+        <h2 class="text-xl max-w-xl text-center" v-html="question.question"></h2>
     
         <!-- multiple answers -->
         <div v-if="question.type === 'multiple'"
@@ -74,7 +68,7 @@ answers.value.splice(Math.floor(Math.random()*(answers.value.length + 1)), 0, pr
             <!-- loop through all answers and create element -->
             <div class="block hover:bg-emerald-300 rounded p-1" v-for="answer in answers">
                 <input type="radio" :name="question.question" :id="answer" :value="answer" v-model="selectedAnswer">
-                <label class="mx-1" :for="answer">{{decode(answer)}}</label>
+                <label class="mx-1" :for="answer" v-html="answer"></label>
             </div>
         </div>
     

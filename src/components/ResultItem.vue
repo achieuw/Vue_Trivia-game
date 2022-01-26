@@ -8,13 +8,6 @@ const props = defineProps({
     },
     index: Number
 })
-
-// decodes text with html codes
-const decode = (str) => {
-    let textArea = document.createElement('textarea')
-    textArea.innerHTML = str;
-    return textArea.value;
-}
 </script>
 
 <template>
@@ -30,18 +23,19 @@ const decode = (str) => {
     </div>
     <div class="absolute inherit-dim bg-[#E9D6EC] -z-10 -m-6 shadow-md">
     </div>
-        <h2 class="font-semibold"> {{ decode(question.question) }} </h2>
+        <!-- v-html to decode the question -->
+        <h2 class="font-semibold" v-html="question.question"></h2>
         <div class="flex justify-evenly m-2 items-center">
             <!-- user answer -->
             <div class="bg-[#9123f8] p-2 rounded text-white text-center">
                 <p>You answered</p>
-                <p>{{ decode(question.answer) }}</p>
+                <p v-html="question.answer"></p>
             </div>
     
             <!-- correct answer -->
             <div class="bg-[#9123f8] p-2 rounded text-white text-center">
                 <p>Correct answer</p>
-                <p>{{ decode(question.correct_answer) }}</p>
+                <p v-html="question.correct_answer"></p>
             </div>
         </div>
 
