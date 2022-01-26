@@ -32,24 +32,24 @@ const getMaxAmountOfQuestions = async () => {
   }
 }
 
-// Update amount of questions value in state and max amount of questions on amount change
+// Update amount of questions value in state and set max amount of questions
 const setQuestionAmount = async () => {
   store.commit("setQuestionAmount", amountOfQuestions.value)
   getMaxAmountOfQuestions()
 }
 
-// Update difficulty value in state and max amount of questions on difficulty change
+// Update difficulty value in state and set max amount of questions
 const setDifficulty = () => {
   store.commit("setQuestionDifficulty", difficulty.value)
   getMaxAmountOfQuestions()
 }
 
-// Update max amount of questions on category change
-const setCategoryValue = (value) => {
+// Update max amount of questions 
+const setCategoryValue = () => {
   getMaxAmountOfQuestions()
 };
 
-// Fetch questions on game start and route to question view
+// Fetch questions on game start 
 const onClickStart = async () => {
   if (validUserInput(username.value)) {
     await store.dispatch("fetchUser", {
