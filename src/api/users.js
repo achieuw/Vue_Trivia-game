@@ -32,12 +32,12 @@ export async function apiUserDataGet(username) {
         const data = await response.json()
 
         if (data.length === 0) {
-            throw new Error(error)
+            throw new Error("User could not be found")
         }
 
-        return data
+        return [null, data]
     } catch (error) {
-        return null
+        return [error.message, null]
     }
 }
 
