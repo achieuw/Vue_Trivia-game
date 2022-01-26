@@ -4,6 +4,7 @@ import StartView from './views/StartView.vue'
 import QuestionView from './views/QuestionView.vue'
 import ResultView from './views/ResultView.vue'
 
+// prevents the user from navigating to any view other than start before starting the game
 const authGuard = (to, from, next) => {
   if(store.state.user === "") {
     next('/')
@@ -12,6 +13,7 @@ const authGuard = (to, from, next) => {
   }
 }
 
+// prevents the user from navigating to questions from result
 const resultQuestionGuard = (to, from, next) => {
   if(store.state.questions && store.state.questions[store.state.questions.length - 1].answer) {
     next('/Result')
