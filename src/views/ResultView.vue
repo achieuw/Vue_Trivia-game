@@ -16,9 +16,15 @@ const resetScore = () => {
   store.commit("setScore", 0);
 };
 
+const resetUser = () => {
+  store.commit("setUser", "");
+  store.commit("setHighScore", 0)
+}
+
 // go to start
 const onClickStartView = () => {
   resetScore();
+  resetUser();
   router.push("/");
 };
 
