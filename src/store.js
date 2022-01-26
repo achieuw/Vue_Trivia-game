@@ -11,7 +11,7 @@ export default createStore({
     score: 0,
     questions: [], // fetched questions
     categories: [],
-    questionAmount: 10,
+    questionAmount: 1,
     questionDifficulty: "any",
     categoryID: 0,
     sessionToken: ""
