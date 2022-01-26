@@ -40,7 +40,7 @@ const onClickNextQuestion = () => {
     }
 }
 
-// decode the value of question and answers
+// decodes text with html codes
 const decode = (str) => {
     let textArea = document.createElement('textarea')
     textArea.innerHTML = str;

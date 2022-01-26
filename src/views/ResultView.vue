@@ -22,6 +22,7 @@ const onClickStartView = () => {
   router.push("/");
 };
 
+// handle play again
 const onClickQuestionView = async () => {
   displayError.value = ""
 

@@ -60,8 +60,8 @@ export default createStore({
       state.score = score
     }
   },
-  actions: {
-    //async calls
+  actions: { //async calls
+    
     async fetchQuestions({ commit }, { amount, difficulty, category, sessionToken }) {
       const [error, questions] = await apiGetQuestions(
         amount,
