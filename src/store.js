@@ -9,8 +9,7 @@ export default createStore({
     id: 0,
     highScore: 0,
     score: 0,
-    questions: [],
-    answers: [],
+    questions: [], // fetched questions
     categories: [],
     questionAmount: 10,
     questionDifficulty: "any",
@@ -20,48 +19,59 @@ export default createStore({
   getters: {
   },
   mutations: {
+    // set user
     setUser: (state, user) => {
       state.user = user;
     },
+    // set user id
     setUserID: (state, id) => {
       state.id = id;
     },
-    setHighScore: (state, highScore) => {
+    // set highscore, if highscore doesn't exist default to 0
+    setHighScore: (state, highScore = 0) => {
       state.highScore = highScore;
     },
+    // set questions
     setQuestions: (state, questions) => {
       state.questions = questions;
     },
+    // add answer to question at index and increase score
     addAnswer: (state, { answer, index }) => {
-      if (answer === "") {
+      if (answer === "") { // if answer is empty, change it to "N/A"
         answer = "N/A"
       }
       state.questions[index].answer = answer;
-      if(state.questions[index].correct_answer === answer ){
+      if(state.questions[index].correct_answer === answer ){ // if answer is correct, add 10 points to score
         state.score += 10;
       }
     },
+    // set question amount
     setQuestionAmount: (state, amount) => {
       state.questionAmount = amount
     },
+    // set question difficulty
     setQuestionDifficulty: (state, difficulty) => {
       state.questionDifficulty = difficulty
     },
+    // set category id
     setCategoryID: (state, id) => {
       state.categoryID = id;
     },
+    // set categories
     setCategories: (state, categories) => {
       state.categories = categories;
     },
+    // set session token
     setSessionToken: (state, token) => {
       state.sessionToken = token;
     },
+    // set score
     setScore: (state, score) => {
       state.score = score
     }
   },
   actions: { //async calls
-    
+    // fetch question with specified parameters
     async fetchQuestions({ commit }, { amount, difficulty, category, sessionToken }) {
       const [error, questions] = await apiGetQuestions(
         amount,
@@ -70,14 +80,14 @@ export default createStore({
         sessionToken
       );
 
-      if (error !== null) {
+      if (error !== null) { // if error, return it and handle it where it was called
         return error;
       }
 
-      commit("setQuestions", questions);
-      return null;
+      commit("setQuestions", questions); // if no error, set questions
+      return null; // and return null
     },
-
+    // fetch questions with the same parameters as last time set in store
     async playAgain({ dispatch,state }) {
       const error = await dispatch('fetchQuestions', {
         amount: state.questionAmount,
@@ -85,53 +95,50 @@ export default createStore({
         category: state.categoryID,
         sessionToken: state.sessionToken});
 
-      return error;
+      return error; // returns what fetch questions gives
     },
-
+    // fetch session token
     async fetchSessionToken({commit}){
       const token = await apiGetSessionToken()
 
-      commit("setSessionToken", token)
+      commit("setSessionToken", token) // set token
     },
-
-    //async calls
+    // fetch categories
     async fetchCategories({ commit }) {
       const categories = await apiGetCategories();
 
-      // if (error !== null) {
-      //   return error;
-      // }
-      commit("setCategories", categories);
+      commit("setCategories", categories); // set categories
       return null;
     },
-
+    // fetch user
     async fetchUser({ commit }, { username }) {
-      const data = await apiUserDataGet(username.value);
+      const [error,data]= await apiUserDataGet(username.value);
 
-      // Get user data if user exist
-      if (data !== null) {
+      // Set user data if user exist
+      if (error === null) {
         commit("setUser", username.value);
         commit("setUserID", data[0].id)
         commit("setHighScore", data[0].highScore);
 
-        // Post user if user does not exist
-      } else {
+      } else { // Post user if user does not exist
         const [error, data] = await apiUserDataPost(username.value);
 
-        if (error !== null) {
-          throw new Error(error);
+        if (error !== null) { // if error, return it and handle where it was called
+          return error;
         }
 
+        //otherwise set user data
         commit("setUser", data.username);
         commit("setUserID", data.id);
 
-        localStorage.setItem("trivia-user", JSON.stringify(data));
+        return null;
       }
       return data;
     },
+    // update user score
     async updateUserScore( { commit }, { id, highScore }) {
-      await apiUserDataPatch(id, highScore)
-      commit("setHighScore", highScore)
+      await apiUserDataPatch(id, highScore) // patch highscore on api
+      commit("setHighScore", highScore) // set highscore
 
       return null
     }
