@@ -1,8 +1,9 @@
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
 import { useStore } from 'vuex';
 import ViewButton from './ViewButton.vue';
 
+// props passed down from parent
 const props = defineProps({
     question: {
         type: Object,
@@ -19,10 +20,13 @@ const store = useStore()
 const displayError = ref('')
 const buttonText = ref('Next Question')
 
+// change button text if on last question
 if(props.questionNumber === props.questionAmount) {
     buttonText.value = 'Go to results'
 }
 
+// if no answer has been chosen, prompt user
+// if answer has been chosen, add answer to question item and emit to go to next question
 const onClickNextQuestion = () => {
     displayError.value = ""
     if(selectedAnswer.value !== ""){
@@ -36,6 +40,7 @@ const onClickNextQuestion = () => {
     }
 }
 
+// decode the value of question and answers
 const decode = (str) => {
     let textArea = document.createElement('textarea')
     textArea.innerHTML = str;
@@ -43,9 +48,9 @@ const decode = (str) => {
 }
 
 const selectedAnswer = ref('');
-//put all answers in answers array
+//put all incorrect_answers in answers array
 const answers = ref([...props.question.incorrect_answers])
-//insert value at random index
+//insert correct answer at random index
 answers.value.splice(Math.floor(Math.random()*(answers.value.length + 1)), 0, props.question.correct_answer)
 
 </script>
@@ -66,6 +71,7 @@ answers.value.splice(Math.floor(Math.random()*(answers.value.length + 1)), 0, pr
         <!-- multiple answers -->
         <div v-if="question.type === 'multiple'"
         class="text-center">
+            <!-- loop through all answers and create element -->
             <div class="block hover:bg-emerald-300 rounded p-1" v-for="answer in answers">
                 <input type="radio" :name="question.question" :id="answer" :value="answer" v-model="selectedAnswer">
                 <label class="mx-1" :for="answer">{{decode(answer)}}</label>
@@ -83,8 +89,11 @@ answers.value.splice(Math.floor(Math.random()*(answers.value.length + 1)), 0, pr
                 <label class="mx-1" for="false">False</label>
             </div>
         </div>
+        <!-- next question/go to result button -->
         <ViewButton class="self-end mb-2 " :buttonText="buttonText" @onClick="onClickNextQuestion"/>
     </div>
+
+    <!-- error text -->
     <div v-if="displayError !== ''" class="fixed right-0 bg-[#FCAA67] p-2 animate-bounce">
         <p class="text-red-700"> {{ displayError }} </p>
     </div>

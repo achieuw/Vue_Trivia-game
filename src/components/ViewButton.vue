@@ -1,12 +1,12 @@
 <script setup>
 
-const emit = defineEmits(['onClick'])
-
 defineProps ({
   buttonText: {
     type: String
   } 
 })
+
+const emit = defineEmits(['onClick'])
 
 const onClick = () => {
   emit('onClick')

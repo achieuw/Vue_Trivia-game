@@ -1,13 +1,10 @@
 <script setup>
 import { useRouter } from 'vue-router';
-import { onMounted } from 'vue';
-import { useStore } from 'vuex';
-import ViewButton from '../components/ViewButton.vue'
 import Question from '../components/Question.vue';
 
 
 const router = useRouter()
-
+//switch view
 const onClickView = () => {
   router.push('Result')
 }
