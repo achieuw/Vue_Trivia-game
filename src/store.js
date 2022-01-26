@@ -78,6 +78,16 @@ export default createStore({
       return null;
     },
 
+    async playAgain({ dispatch,state }) {
+      const error = await dispatch('fetchQuestions', {
+        amount: state.questionAmount,
+        difficulty: state.difficulty,
+        category: state.categoryID,
+        sessionToken: state.sessionToken});
+
+      return error;
+    },
+
     async fetchSessionToken({commit}){
       const token = await apiGetSessionToken()
 

@@ -4,38 +4,34 @@ import ViewButton from '../components/ViewButton.vue'
 import ResultList from '../components/ResultList.vue';
 import ResultScore from '../components/ResultScore.vue';
 import { useStore } from 'vuex';
-import { apiUserDataPatch } from '../api/users';
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 
 const router = useRouter();
 const store = useStore();
 
-const questionAmount = computed(() => store.state.questionAmount);
-const difficulty = computed(() => store.state.questionDifficulty);
-const categoryID = computed(() => store.state.categoryID);
-const sessionToken = computed(() => store.state.sessionToken);
-
 const displayError = ref('')
 
+// reset score when play again or going to start
 const resetScore = () => {
   store.commit("setScore", 0);
 };
+
+// go to start
 const onClickStartView = () => {
   resetScore();
   router.push("/");
 };
+
 const onClickQuestionView = async () => {
   displayError.value = ""
 
-  const error = await store.dispatch("fetchQuestions", {
-    amount: questionAmount.value,
-    difficulty: difficulty.value,
-    category: categoryID.value,
-    sessionToken: sessionToken.value
-  })
+  // fetch new questions with same parameters as last time
+  const error = await store.dispatch('playAgain');
+
+  // if we get an error, display it
   if(error) {
     displayError.value = error
-  } else {
+  } else { // else reset score and go to question view
     resetScore()
     router.push('/Questions')
   }
@@ -55,6 +51,7 @@ const onClickQuestionView = async () => {
           buttonText="Play again" 
           @onClick="onClickQuestionView"/>
   </div>
+  <!-- error text -->
   <p class="text-red-700 text-center">{{ displayError }}</p>
 </div>
 </template>
